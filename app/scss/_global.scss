@@ -1,0 +1,10 @@
+body {
+    color: $mainColor;
+    font-size: rem(18);
+    line-height: calc(25 / 18 * 100%);
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    transition: all .3s ease;
+}

@@ -1,0 +1,50 @@
+.speakers {
+    @include adaptiveValue("padding-top", 80, 40);
+    &__inners {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        column-gap: rem(47);
+        row-gap: rem(50);
+    }
+    &__row {
+        display: flex;
+        gap: rem(20);
+    }
+    &__content {
+        flex: 0 1 85%;
+    }
+    &__column-title-link {
+        color: inherit;
+        font-size: rem(16);
+        font-weight: 600;
+    }
+    &__column-title {
+        margin-top: rem(20);
+    }
+    &__column-picture {
+        img {
+            width: rem(230);
+            height: rem(230);
+            object-fit: cover;
+        }
+    }
+    &__profession {
+        font-weight: 400;
+        font-size: rem(16);
+        color: #808080;
+        margin-top: rem(5);
+    }
+    &__aside {
+        flex: 0 1 15%;
+        button {
+            display: block;
+            &:not(:last-child) {
+                margin-bottom: rem(10);
+            }
+        }
+    }
+}
+
+.grid-item {
+    max-width: 230px;
+}
