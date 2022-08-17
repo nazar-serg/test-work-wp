@@ -16,9 +16,7 @@
                 <div class="header__logo">
                     <?php echo the_custom_logo(); ?>
                 </div>
-                <div class="header__burger">
-                        <span></span>
-                </div>
+               
                 <nav class="header__menu">
                     <?php
                         wp_nav_menu([
@@ -30,15 +28,20 @@
                         ]);
                     ?>
                 </nav>
-                <div class="header__register">
-                    <button class="header__register-btn">Register</button>
+                <div class="header__actions">
+                    <div data-da=".header__menu,767.98" class="header__register">
+                        <a class="header__register-btn-link" href="#">Register</a>
+                    </div>
+                    <div class="header__languages">
+                        <ul class="header__languages-list">
+                            <li class="header__languages-item">
+                                <a class="header__languages-link"href="#">EN</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="header__languages">
-                    <ul class="header__languages-list">
-                        <li class="header__languages-item">
-                            <a class="header__languages-link"href="#">EN</a>
-                        </li>
-                    </ul>
+                <div class="header__burger">
+                        <span></span>
                 </div>
             </div>
         </div>

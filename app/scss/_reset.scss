@@ -58,6 +58,8 @@ button {
     color: inherit;
     background-color: inherit;
     transition: all .3s ease-in-out;
+    border: none;
+    outline: none;
     &:hover {
         background-color: $bgHover;
         color: #fff;

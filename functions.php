@@ -7,6 +7,7 @@ function load_scripts(){
 	wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'isotope', get_template_directory_uri() . '/app/js/isotope.min.js', array('jquery'), '1.0.0', true );
     wp_enqueue_script( 'imageloaded', get_template_directory_uri() . '/app/js/imageloaded.min.js', array('jquery'), '1.0.0', true );
+    wp_enqueue_script( 'dynamic_adapt', get_template_directory_uri() . '/app/js/dynamic_adapt.js', array('jquery'), '1.0.0', true );
 	wp_enqueue_script( 'script', get_template_directory_uri() . '/app/js/app.min.js', array( 'jquery' ), '4.0.0', true );
 
 
@@ -88,6 +89,17 @@ function test_custom_posts() {
         'hierarchical' => true,
         'show_admin_column' => true
     ) );
+
+    register_post_type('session', array(
+        'labels' => array(
+            'name' => __( 'Sessions', 'test-work' ),
+            'singular_name' => __( 'Session', 'test-work' )
+        ),
+        'public' => true,
+        'show_ui' => true,
+        'supports' => array('title'),
+        'show_in_rest' => true
+    ));
 }
 
 add_action( 'init', 'test_custom_posts' );

@@ -28,7 +28,8 @@
             object-fit: cover;
         }
     }
-    &__profession {
+    &__profession,
+    &__сountry {
         font-weight: 400;
         font-size: rem(16);
         color: #808080;
@@ -38,13 +39,99 @@
         flex: 0 1 15%;
         button {
             display: block;
+            border: none;
+            outline: none;
+            font-size: rem(16);
             &:not(:last-child) {
                 margin-bottom: rem(10);
             }
+            &:hover {
+                background-color: transparent;
+                color: #065C9E;
+            }
         }
+    }
+    &__dropdown {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: rem(5);
+        &:hover .speakers__dropdown-content {
+            display: block;
+        }
+    }
+    &__dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: rem(160);
+        box-shadow: rem(0) rem(8) rem(16) rem(0) rgba(0, 0, 0, 0.2);
+        padding: rem(8) rem(4);
+        z-index: 1;
+        transition: all .3s ease-in-out;
+    }
+    &__name-category {
+        color: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: rem(18);
+        display: block;
+        margin-bottom: rem(10);
+    }
+    &__aside-title {
+        font-size: 24px;
+        margin-bottom: rem(25);
     }
 }
 
 .grid-item {
-    max-width: 230px;
+    max-width: 250px;
+    width: 100%;
+}
+
+.grid-item:not(:last-child) {
+    padding-right: rem(10);
+    margin-bottom: rem(50);
+}
+
+.content {
+    @include adaptiveValue("padding-top", 80, 40);
+    &__inners {
+        display: flex;
+        gap: rem(40);
+        @media (max-width: $tablet) {
+            flex-direction: column;
+        }
+    }
+    &__column {
+        flex: 0 1 50%;
+    }
+    &__column-title {
+        padding-bottom: rem(20);
+        h1 {
+            font-size: rem(28);
+            line-height: calc(28 / 28 * 100%);
+        }
+    }
+    &__column-img {
+        max-width: rem(500);
+        width: 100%;
+        height: rem(400);
+        object-fit: cover;
+    }
+}
+
+.sessions {
+    @include adaptiveValue("padding-top", 60, 20);
+    &__title {
+        padding-bottom: rem(20);
+        h2 {
+            font-size: rem(24);
+            line-height: calc(24 / 24 * 100%);
+        }
+    }
+    p {
+        font-size: rem(16);
+        line-height: calc(34 / 16 * 100%);
+    }
 }

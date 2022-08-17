@@ -5,8 +5,11 @@
     left: 0;
     z-index: 50;
     transition: all .2s ease-in-out 0s;
-    @include adaptiveValue("padding-top", 46, 24);
-    @include adaptiveValue("padding-bottom", 34, 14);
+    padding-top: rem(46);
+    padding-bottom: rem(34);
+    @media (max-width: $mobileSmall) {
+        padding-top: rem(70);
+    }
     &::before {
         content: '';
         position: absolute;
@@ -21,7 +24,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        //height: 80px;
         z-index: 10;
     }
     &__list {
@@ -33,7 +35,8 @@
         @media (max-width: $mobile) {
             display: block;
             text-align: center;
-            margin-top: rem(100);
+            margin: rem(166) rem(0) rem(0);
+            padding: rem(0) rem(20);
         }
     }
     &__link {
@@ -42,33 +45,34 @@
         font-weight: 600;
         @media (max-width: $mobile) {
             text-transform: uppercase;
-            font-size: rem(20);
+            font-size: rem(18);
         }
         &:hover {
             color: $colorHover;
         }
     }
     &__item {
-        margin: 0px 0px 0px 25px;
+        margin: 0 0 0 rem(25);
         @media (max-width: $mobile) {
-            margin: 0px 0px 20px 0px;
+            margin: 0 0 rem(40) 0;
+            &:last-child {
+                margin-bottom: rem(70);
+            }
         }
     }
     &__logo {
-        flex: 0 1 130px;
-        @include adaptiveValue("width", 99, 70, 1500, 768, 1);
+        max-width: rem(99);
+        width: 100%;
+        height: rem(46);
+        object-fit: cover;
+        position: relative;
+        z-index: 10;
+        @include adaptiveValue("margin-right", 100, 20);
         img {
             max-width: 100%;
+            display: block;
+            object-fit: cover;
         }
-        // flex: 0 0 80px;
-        // position: relative;
-        // z-index: 3;
-        // margin: 15px 0px 0px 0px;
-        // img {
-        //     max-width: 100%;
-        //     display: block;
-        //     object-fit: cover;
-        // }
     }
     &__burger {
         display: none;
@@ -82,7 +86,7 @@
             &::before,
             &::after {
                 content: '';
-                background-color: #D32BA3;
+                background-color: #323232;
                 position: absolute;
                 width: 100%;
                 height: 2px;
@@ -98,7 +102,7 @@
         }
         span {
             position: absolute;
-            background-color: #D32BA3;
+            background-color: #323232;
             left: 0;
             width: 100%;
             height: 2px;
@@ -115,10 +119,10 @@
             right: 0;
             width: 100%;
             height: 100%;
-            background-color: #D2D9DB;
-            padding: 60px 10px 20px 10px;
+            background-color: #fff;
             transition: all 0.3s ease 0s;
-            overflow: auto;
+            //overflow: auto;
+            padding: rem(0);
         }
     }
     &__btn {
@@ -128,20 +132,45 @@
             display: none;
         }
     }
-    &__register {
-        margin-right: 40px;
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: rem(40);
     }
-    &__register-btn {
-        padding: rem(10) rem(70);
+    &__register {
+        @media (max-width: $mobile) {
+            display: block;
+            text-align: center;
+        }
+    }
+    &__register-btn-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: rem(250);
+        padding: rem(11) rem(44);
+        @include adaptiveValue("padding-left", 44, 15);
+        @include adaptiveValue("padding-right", 44, 15);
         font-size: rem(14);
         text-transform: uppercase;
         font-weight: 600;
+        border: 1px solid #323232;
+        color: initial;
         &:hover {
             background-color: $bgHover;
             color: #fff;
         }
-        @media (max-width: $tablet) {
-            padding: rem(10) rem(50);
+        @media (max-width: $mobile) {
+            background-color: #323232;
+            color: #fff;
+            max-width: 100%;
+            margin: auto;
+        }
+    }
+    &__languages {
+        margin-right: 14px;
+        @media (max-width: $mobile) {
+            display: none;
         }
     }
     &__languages-list {
@@ -152,9 +181,9 @@
         &::before {
             content: '';
             position: absolute;
-            top: 10px;
+            top: 8px;
             right: -14px;
-            background: url(../img/str-down.png) no-repeat;
+            background: url(../img/str-down.png) no-repeat center;
             width: rem(10);
             height: rem(8);
         }
@@ -164,6 +193,10 @@
         font-size: rem(14);
         font-weight: 600;
     }
+}
+
+.banner-home__container-big {
+    padding: 0;
 }
 
 .menu-fixed {
