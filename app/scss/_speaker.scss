@@ -1,101 +1,67 @@
 .speakers {
     @include adaptiveValue("padding-top", 80, 40);
-    &__inners {
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        column-gap: rem(47);
-        row-gap: rem(50);
-    }
+    @include adaptiveValue("padding-bottom", 80, 40);
     &__row {
         display: flex;
-        gap: rem(20);
+        gap: rem(40);
     }
-    &__content {
-        flex: 0 1 85%;
+    &__aside-title {
+        font-size: rem(22);
+        margin-bottom: rem(20);
     }
-    &__column-title-link {
-        color: inherit;
-        font-size: rem(16);
-        font-weight: 600;
-    }
-    &__column-title {
+    &__name {
         margin-top: rem(20);
+        a {
+            font-size: rem(16);
+            line-height: math.div(28, 16);
+            font-weight: 600;
+            color: initial;
+        }
     }
-    &__column-picture {
+    &__select-name {
+        display: block;
+        width: 100%;
+        &:not(:last-child) {
+            margin-bottom: rem(8);
+        }
+    }
+    &__btn-aside {
+        border: rem(1) solid #323232;
+        display: block;
+        width: 100%;
+        background-color: #EEF1F5;
+        padding: rem(4) rem(8);
+        margin-top: rem(15);
+    }
+    &__content-row {
+        display: flex;
+        justify-content: space-between;
+        column-gap: rem(47);
+    }
+    &__content-column {
+        flex: 1 1 33.333%;
+    }
+    &__picture {
         img {
-            width: rem(230);
+            max-width: rem(230);
+            width: 100%;
             height: rem(230);
             object-fit: cover;
         }
     }
-    &__profession,
-    &__сountry {
-        font-weight: 400;
-        font-size: rem(16);
-        color: #808080;
-        margin-top: rem(5);
-    }
-    &__aside {
-        flex: 0 1 15%;
-        button {
-            display: block;
-            border: none;
-            outline: none;
-            font-size: rem(16);
-            &:not(:last-child) {
-                margin-bottom: rem(10);
-            }
-            &:hover {
-                background-color: transparent;
-                color: #065C9E;
-            }
+    &__content {
+        h2 {
+            font-size: rem(36);
+            line-height: math.div(44, 36);
+            font-weight: 900;
+            margin-bottom: rem(40);
         }
     }
-    &__dropdown {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        margin-bottom: rem(5);
-        &:hover .speakers__dropdown-content {
-            display: block;
-        }
-    }
-    &__dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: rem(160);
-        box-shadow: rem(0) rem(8) rem(16) rem(0) rgba(0, 0, 0, 0.2);
-        padding: rem(8) rem(4);
-        z-index: 1;
-        transition: all .3s ease-in-out;
-    }
-    &__name-category {
-        color: inherit;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: rem(18);
-        display: block;
-        margin-bottom: rem(10);
-    }
-    &__aside-title {
-        font-size: 24px;
-        margin-bottom: rem(25);
-    }
-}
-
-.grid-item {
-    max-width: 250px;
-    width: 100%;
-}
-
-.grid-item:not(:last-child) {
-    padding-right: rem(10);
-    margin-bottom: rem(50);
 }
 
 .content {
     @include adaptiveValue("padding-top", 80, 40);
+    @include adaptiveValue("padding-bottom", 80, 40);
     &__inners {
         display: flex;
         gap: rem(40);
@@ -128,10 +94,20 @@
         h2 {
             font-size: rem(24);
             line-height: calc(24 / 24 * 100%);
+            margin-bottom: rem(20);
         }
     }
     p {
         font-size: rem(16);
         line-height: calc(34 / 16 * 100%);
+    }
+    &__list {
+        list-style: none;
+        margin: rem(0);
+        padding: rem(0);
+        li {
+            font-size: rem(18);
+            line-height: math.div(34, 18);
+        }
     }
 }

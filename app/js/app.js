@@ -6,48 +6,50 @@ $(document).ready(function() {
     });
 });
 
-/* Isotope Active
-      ============================*/
-$(".speakers").imagesLoaded(function() {
-    var grid = $(".grid").isotope({
-        itemSelector: ".grid-item",
-        percentPosition: true,
-        masonry: {
-            columnWidth: ".grid-item"
-        }
-    });
+// /* Isotope Active
+//       ============================*/
+// $(".speakers").imagesLoaded(function() {
+//     var grid = $(".grid").isotope({
+//         itemSelector: ".grid-item",
+//         percentPosition: true,
+//         masonry: {
+//             columnWidth: ".grid-item"
+//         }
+//     });
 
-    $(".speakers__aside").on("click", "button", function() {
-        var filterValue = $(this).attr("data-filter");
-        grid.isotope({
-            filter: filterValue
+//     $(".speakers__aside").on("click", "button", function() {
+//         var filterValue = $(this).attr("data-filter");
+//         grid.isotope({
+//             filter: filterValue
+//         });
+//     });
+
+//     /* Isotope Menu Active
+//     ============================*/
+//     $(".speakers__aside button").on("click", function(event) {
+//         $(this)
+//             .siblings(".active")
+//             .removeClass("active");
+//         $(this).addClass("active");
+//         event.preventDefault();
+//     });
+// });
+
+jQuery(function($) {
+    $('#filter').submit(function() {
+        var filter = $('#filter');
+        $.ajax({
+            url: filter.attr('action'),
+            data: filter.serialize(), // form data
+            type: filter.attr('method'), // POST
+            beforeSend: function(xhr) {
+                filter.find('button').text('Processing...'); // changing the button label
+            },
+            success: function(data) {
+                filter.find('button').text('Apply filter'); // changing the button label back
+                $('#response').html(data); // insert data
+            }
         });
-    });
-
-    /* Isotope Menu Active
-    ============================*/
-    $(".speakers__aside button").on("click", function(event) {
-        $(this)
-            .siblings(".active")
-            .removeClass("active");
-        $(this).addClass("active");
-        event.preventDefault();
+        return false;
     });
 });
-
-//year footer
-let date = new Date().getFullYear();
-
-document.getElementById("year").innerHTML = date;
-
-//menu fixed
-window.onscroll = () => {
-    const menu = document.querySelector('.header');
-    const Y = window.scrollY;
-
-    if (Y > 300) {
-        menu.classList.add('menu-fixed');
-    } else if (Y < 100) {
-        menu.classList.remove('menu-fixed');
-    }
-}

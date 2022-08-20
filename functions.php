@@ -1,5 +1,8 @@
 <?php
 
+//Custom Posts Types
+require get_template_directory() . '/inc/wp-custom-post-type.php'; 
+
 // Including stylesheet and script files
 function load_scripts(){
     wp_deregister_script( 'jquery' );
@@ -29,10 +32,7 @@ function learnwp_config(){
 
 	add_theme_support( 'post-thumbnails', array('speaker') );
 	add_theme_support( 'title-tag' );
-	add_theme_support( 'custom-logo', array(
-		'height' => 46,
-		'width' => 98
-	) );
+	add_theme_support( 'custom-logo' );
 
 }
 add_action( 'after_setup_theme', 'learnwp_config', 0 );
@@ -55,51 +55,89 @@ function add_additional_class_on_li($classes, $item, $args) {
 }
 add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
 
-//Custom Posts Types
-function test_custom_posts() {
+// Registering our sidebars
+add_action( 'widgets_init', 'footer_sidebars' );
+function footer_sidebars(){
+	register_sidebar(
+		array(
+			'name' => __( 'Footer Sidebar Button', 'learnwp' ),
+			'id' => 'sidebar-1',
+			'description' => __( 'This is the Footer Sidebar Button. You can add your widgets here. ' , 'learnwp' ),
+			'before_widget' => '<div class="widget-wrapper">',
+			'after_widget' => '</div>',
+			'before_title' => '<h2 class="widget-title">',
+			'after_title' => '</h2>'
+		)
+	);
+	register_sidebar(
+		array(
+			'name' => __( 'Footer Logo Sidebar', 'learnwp' ),
+			'id' => 'sidebar-2',
+			'description' => __( 'This is the Footer Logo Sidebar. You can add your widgets here. ', 'learnwp' ),
+			'before_widget' => '<div class="widget-wrapper">',
+			'after_widget' => '</div>',
+			'before_title' => '<h2 class="widget-title">',
+			'after_title' => '</h2>'
+		)
+	);		
 
-    //Speakers custom posts
-    register_post_type('speaker', array(
-        'labels' => array(
-            'name' => __( 'Speakers', 'test-work' ),
-            'singular_name' => __( 'Speaker', 'test-work' )
-        ),
-        'public' => true,
-        'show_ui' => true,
-        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
-		'taxonomies' => array( 'speaker-position', 'speaker-countries' )
-    ));
-
-    register_taxonomy( 'speaker-position', 'speaker', array(
-        'labels' => array(
-            'name' => __('Positions', 'test-work'),
-            'singular_name' => __('category', 'test-work')
-        ),
-        'slug' => 'speaker-position',
-        'hierarchical' => true,
-        'show_admin_column' => true
-    ) );
-
-	register_taxonomy( 'speaker-countries', 'speaker', array(
-        'labels' => array(
-            'name' => __('Countries', 'test-work'),
-            'singular_name' => __('category', 'test-work')
-        ),
-        'slug' => 'speaker-countries',
-        'hierarchical' => true,
-        'show_admin_column' => true
-    ) );
-
-    register_post_type('session', array(
-        'labels' => array(
-            'name' => __( 'Sessions', 'test-work' ),
-            'singular_name' => __( 'Session', 'test-work' )
-        ),
-        'public' => true,
-        'show_ui' => true,
-        'supports' => array('title'),
-        'show_in_rest' => true
-    ));
+    register_sidebar(
+		array(
+			'name' => __( 'Footer Main Logo Sidebar', 'learnwp' ),
+			'id' => 'sidebar-3',
+			'description' => __( 'This is the Footer Main Logo Sidebar. You can add your widgets here. ', 'learnwp' ),
+			'before_widget' => '<div class="widget-wrapper">',
+			'after_widget' => '</div>',
+			'before_title' => '<h2 class="widget-title">',
+			'after_title' => '</h2>'
+		)
+	);		
 }
 
-add_action( 'init', 'test_custom_posts' );
+//Filter Speakers
+add_action('wp_ajax_myfilter', 'misha_filter_function');
+add_action('wp_ajax_nopriv_myfilter', 'misha_filter_function');
+
+function misha_filter_function(){
+	$args = array(
+		'orderby' => 'date',
+		'order'	=> $_POST['date']
+	);
+ 
+	if( isset( $_POST['speaker-position']) && !empty($_POST['speaker-countries'])) 
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'speaker-position',
+				'field' => 'id',
+				'terms' => $_POST['speaker-position']
+            ),
+            array(
+				'taxonomy' => 'speaker-countries',
+				'field' => 'id',
+				'terms' => $_POST['speaker-countries']
+            ),
+		);
+
+	$query = new WP_Query( $args );
+	echo "<div class='speakers__content-row'>";
+	if( $query->have_posts() ) :
+		while( $query->have_posts() ): $query->the_post();
+            $img = get_the_post_thumbnail_url();
+            $url = get_the_permalink();
+            echo "<div class='speakers__content-column'>";
+            echo "<div class='speakers__picture'><a href=".$url."><img src='$img'></a></div>";
+			echo '<div class="speakers__name"><a href="'.$url.'">' . $query->post->post_title . '</a></div>';
+            echo "</div>";
+		endwhile;
+		wp_reset_postdata();
+	else :
+		echo 'No posts found';
+	endif;
+	echo "</div>";
+	die();
+}
+
+//Session
+
+
+

@@ -21,14 +21,20 @@
         <div class="sessions__container">
             <div class="sessions__title">
                 <h2>Sessions</h2>
+                <?php
+                $featured_posts = get_field('session');
+                if( $featured_posts ): ?>
+                    <ul class="sessions__list">
+                    <?php foreach( $featured_posts as $featured_post ): 
+                        $title = get_the_title( $featured_post->ID );
+                        ?>
+                        <li>
+                            <?php echo esc_html( $title ); ?>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </div>
-            <?php
-            $sessions = get_field('sessions');
-            if ($sessions):
-                foreach ($sessions as $session): ?>
-                    <p><?php echo $session->post_title; ?></p>
-                <?php endforeach; ?>
-            <?php endif; ?>
         </div>
     </div>
 <?php get_footer(); ?>
